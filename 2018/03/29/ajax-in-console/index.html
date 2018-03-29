@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>在控制台发送 ajax 请求 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript," />
+  
+
+  <meta name="description" content="浏览器控制台是个非常强大的工具，有一次浏览某网站的时候，想把部分数据保存在本地，但浏览器并未提供读写本地文件的接口，于是想到自己搭建一个 server，然后通过 ajax 请求发送给服务器保存。 假如我们想要保存的数据在 id 为 info 的 div 中，可以用下面的命令获取全部文本数据： 1document.querySelector(&apos;#info&apos;).textContent 然后用 expr">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在控制台发送 ajax 请求">
+<meta property="og:url" content="http://blog.json.Fit/2018/03/29/ajax-in-console/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="浏览器控制台是个非常强大的工具，有一次浏览某网站的时候，想把部分数据保存在本地，但浏览器并未提供读写本地文件的接口，于是想到自己搭建一个 server，然后通过 ajax 请求发送给服务器保存。 假如我们想要保存的数据在 id 为 info 的 div 中，可以用下面的命令获取全部文本数据： 1document.querySelector(&apos;#info&apos;).textContent 然后用 expr">
+<meta property="og:updated_time" content="2018-03-29T11:36:32.508Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在控制台发送 ajax 请求">
+<meta name="twitter:description" content="浏览器控制台是个非常强大的工具，有一次浏览某网站的时候，想把部分数据保存在本地，但浏览器并未提供读写本地文件的接口，于是想到自己搭建一个 server，然后通过 ajax 请求发送给服务器保存。 假如我们想要保存的数据在 id 为 info 的 div 中，可以用下面的命令获取全部文本数据： 1document.querySelector(&apos;#info&apos;).textContent 然后用 expr">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ajax-in-console" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">在控制台发送 ajax 请求</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.03.29</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://blog.json.fit/2018/03/29/ajax-in-console/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>浏览器控制台是个非常强大的工具，有一次浏览某网站的时候，想把部分数据保存在本地，但浏览器并未提供读写本地文件的接口，于是想到自己搭建一个 server，然后通过 ajax 请求发送给服务器保存。</p>
+<p>假如我们想要保存的数据在 id 为 info 的 div 中，可以用下面的命令获取全部文本数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">'#info'</span>).textContent</span><br></pre></td></tr></table></figure>
+<p>然后用 express 搭建了一个server，读取 POST 请求的 body，然后保存到本地。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加跨域cors访问权限</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Origin, X-Requested-With, Content-Type, Accept"</span>);</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义中间件接收POST数据并放在req.body中，此部分也可用body-parser代替</span></span><br><span class="line">app.use(<span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> data = <span class="string">''</span>;</span><br><span class="line">    req.setEncoding(<span class="string">'utf8'</span>);</span><br><span class="line">    req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123;</span><br><span class="line">        data += chunk;</span><br><span class="line">    &#125;);</span><br><span class="line">    req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        req.body = data;</span><br><span class="line">        next();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 顶级GET路由</span></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.send(<span class="string">'Hello from server!'</span>)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 顶级POST路由</span></span><br><span class="line">app.post(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    fs.writeFile(__dirname + <span class="string">"/result"</span>, req.body, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="built_in">console</span>.log(err);</span><br><span class="line">        <span class="keyword">const</span> msg = <span class="string">'The file was saved!'</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(msg);</span><br><span class="line">        res.send(msg);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在3000端口启动服务器</span></span><br><span class="line"><span class="keyword">const</span> server = app.listen(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> host = server.address().address;</span><br><span class="line">    <span class="keyword">const</span> port = server.address().port;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Example app listening at http://%s:%s'</span>, host, port);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>万事俱备就差 ajax 请求了，那如何在控制台发送 ajax 请求呢？谷歌和火狐浏览器提供了 <code>fetch</code> 方法，用法非常简单：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://localhost:3000"</span>) <span class="comment">// get请求</span></span><br><span class="line">fetch(<span class="string">"http://localhost:3000"</span>,&#123; <span class="comment">// post请求</span></span><br><span class="line">	method:<span class="string">"POST"</span>,</span><br><span class="line">	headers: &#123;</span><br><span class="line">        <span class="string">"Content-Type"</span>: <span class="string">"application/x-www-form-urlencoded"</span></span><br><span class="line">   &#125;, </span><br><span class="line">   body:<span class="string">'name=Lucy&amp;age=28'</span></span><br><span class="line">&#125;)</span><br><span class="line">fetch(<span class="string">"http://localhost:3000"</span>,&#123; <span class="comment">// post请求</span></span><br><span class="line">	method:<span class="string">"POST"</span>,</span><br><span class="line">	headers: &#123;</span><br><span class="line">        <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span></span><br><span class="line">   &#125;, </span><br><span class="line">   body:<span class="string">'&#123;"welcome":"你好"&#125;'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>最终的结果就是返回一个 promise，可以用 <code>promise.then.catch</code> 等方法，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://localhost:3000"</span>)</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">console</span>.log(res))</span><br><span class="line">  .catch(<span class="function"><span class="params">e</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">"something went wrong: "</span> + e))</span><br><span class="line"></span><br><span class="line">fetch(<span class="string">"http://localhost:3000"</span>,&#123;<span class="attr">method</span>:<span class="string">"POST"</span>, <span class="attr">body</span>:<span class="string">"你好"</span>&#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> <span class="built_in">console</span>.log(res))</span><br><span class="line">  .catch(<span class="function"><span class="params">e</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">"something went wrong: "</span> + e))</span><br></pre></td></tr></table></figure>
+<p>测试非常方便有木有？Fetch 跨域请求时默认不会带 cookie，对于那些需要用 cookie 进行权限验证的网站，必须指定 <code>credentials: &#39;include&#39;</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://localhost:3000"</span>, &#123;<span class="attr">credentials</span>: <span class="string">'include'</span>&#125;)</span><br><span class="line">	.then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>还能获取 http header 信息：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"http://localhost:3000"</span>).then(<span class="function"><span class="params">res</span>=&gt;</span> &#123; </span><br><span class="line">    <span class="built_in">console</span>.log(res.headers.get(<span class="string">'Content-Type'</span>)); </span><br><span class="line">    <span class="built_in">console</span>.log(res.headers.get(<span class="string">'Date'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>res 对象还提供如下方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">arrayBuffer()</span><br><span class="line">blob()</span><br><span class="line">json()</span><br><span class="line">text()</span><br><span class="line">formData()</span><br></pre></td></tr></table></figure>
+<p>具体使用可参见<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalFetch/fetch" target="_blank" rel="noopener">文档</a>。但有些同学偏偏想要用 jQuery 提供的 ajax 方法，有没有办法呢？也有，请看：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jq = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);  </span><br><span class="line">jq.src = <span class="string">'http://7xsy2w.com1.z0.glb.clouddn.com/jquery-3.1.1.min.js'</span>; <span class="comment">//也可以放本地服务器上</span></span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(jq);</span><br></pre></td></tr></table></figure>
+<p>这样就把 jQuery 的库给加载进来了，加载完成之后呢还要做一件事情：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">j=jQuery</span><br><span class="line">j.noConflict();</span><br></pre></td></tr></table></figure>
+<p>这是因为 chrome 本身封装了一个 <code>$</code> 选择器，<code>$(selector)</code> 返回的是满足选择条件的首个 DOM 元素。剥去她伪善的外衣，其实 <code>$(selector)</code> 是原生JavaScript的 <code>document.querySelector()</code> 的封装。同时还有另一个命令 <code>$$(selector)</code> 返回的是所有满足选择条件的元素的一个集合，是对 <code>document.querySelectorAll()</code> 的封装。那为了避免和它冲突，需要 jQuery 释放 <code>$</code> 使用权，如果用 <code>j</code> 代替就可以用下面的方法传输数据给服务器了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">j.ajax(&#123;</span><br><span class="line">    url: <span class="string">'http://localhost:3000'</span>,</span><br><span class="line">    type: <span class="string">"GET"</span>, </span><br><span class="line">    data: <span class="string">'keyword=南站'</span>,</span><br><span class="line">    dataType: <span class="string">"json"</span>,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'发送成功！'</span>); &#125;,</span><br><span class="line">    error:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'发送失败！'</span>); &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">j.ajax(&#123;</span><br><span class="line">    url: <span class="string">'http://localhost:3000'</span>,</span><br><span class="line">    type: <span class="string">"POST"</span>,</span><br><span class="line">    data: <span class="built_in">JSON</span>.stringify(data),</span><br><span class="line">    dataType: <span class="string">"json"</span>,</span><br><span class="line">    success:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="built_in">console</span>.log(<span class="string">'发送成功！'</span>); &#125;,</span><br><span class="line">    error:<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'发送失败！'</span>); &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>最后，列举 fetch 和 ajax 的两点不同：</p>
+<blockquote>
+<ol>
+<li>从 fetch() 返回的 Promise 将不会拒绝 HTTP 错误状态, 即使响应是一个 HTTP 404 或 500。相反，它会正常解决（其中ok状态设置为false），并且仅在网络故障时或任何阻止请求完成时，它才会拒绝。</li>
+<li>默认情况下, fetch 在服务端不会发送或接收任何 cookies，如果站点依赖于维护一个用户会话，则导致未经认证的请求（要发送 cookies，必须发送凭据头）。</li>
+</ol>
+</blockquote>
+<p>fetch返回的结果里面的 <code>status</code> 字段表示服务器返回状态码，<code>ok</code> 字段可以用于判断请求状态码是否在正常范围。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleErrors</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!response.ok) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">Error</span>(response.statusText);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line">fetch(<span class="string">"http://localhost:3030/books"</span>)</span><br><span class="line">    .then(handleErrors)</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"ok"</span>) )</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> <span class="built_in">console</span>.log(error) );</span><br></pre></td></tr></table></figure>
+<p>最后来分析一下 response 对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type - basic, cors</span><br><span class="line">url</span><br><span class="line">useFinalURL - Boolean for if url is the final URL</span><br><span class="line">status - status code (ex: 200, 404, etc.)</span><br><span class="line">ok - Boolean for successful response (status in the range 200-299)</span><br><span class="line">statusText - status code (ex: OK)</span><br><span class="line">headers - Headers object associated with the response.</span><br></pre></td></tr></table></figure>
+<p>更详细的内容请参见：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch" target="_blank" rel="noopener">文档1</a>，<a href="https://davidwalsh.name/fetch" target="_blank" rel="noopener">文档2</a></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/03/29/issues/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'http://blog.json.Fit/2018/03/29/ajax-in-console/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
