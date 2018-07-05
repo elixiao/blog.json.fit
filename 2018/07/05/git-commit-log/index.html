@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>git 提交规范 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript," />
+  
+
+  <meta name="description" content="Git 提交规范分为 header 和 body 两个部分： 123&amp;lt;type&amp;gt;: &amp;lt;subject&amp;gt;&amp;lt;body&amp;gt; headerheader 由 type 和 subject 两部分组成： type表示类型，只能是下几种：  feat: 新功能 fix: 修复问题 docs: 修改文档 style: 修改代码格式，不影响代码逻辑 refactor: 重构代码，理">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 提交规范">
+<meta property="og:url" content="https://blog.json.Fit/2018/07/05/git-commit-log/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="Git 提交规范分为 header 和 body 两个部分： 123&amp;lt;type&amp;gt;: &amp;lt;subject&amp;gt;&amp;lt;body&amp;gt; headerheader 由 type 和 subject 两部分组成： type表示类型，只能是下几种：  feat: 新功能 fix: 修复问题 docs: 修改文档 style: 修改代码格式，不影响代码逻辑 refactor: 重构代码，理">
+<meta property="og:updated_time" content="2018-07-05T02:50:08.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 提交规范">
+<meta name="twitter:description" content="Git 提交规范分为 header 和 body 两个部分： 123&amp;lt;type&amp;gt;: &amp;lt;subject&amp;gt;&amp;lt;body&amp;gt; headerheader 由 type 和 subject 两部分组成： type表示类型，只能是下几种：  feat: 新功能 fix: 修复问题 docs: 修改文档 style: 修改代码格式，不影响代码逻辑 refactor: 重构代码，理">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-提交规范"><span class="toc-text">Git 提交规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#header"><span class="toc-text">header</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#type"><span class="toc-text">type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#subject"><span class="toc-text">subject</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#body"><span class="toc-text">body</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-text">示例</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-git-commit-log" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">git 提交规范</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.07.05</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://blog.json.fit/2018/07/05/git-commit-log/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="Git-提交规范"><a href="#Git-提交规范" class="headerlink" title="Git 提交规范"></a>Git 提交规范</h2><p>分为 header 和 body 两个部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;: &lt;subject&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="header"><a href="#header" class="headerlink" title="header"></a>header</h2><p>header 由 type 和 subject 两部分组成：</p>
+<h4 id="type"><a href="#type" class="headerlink" title="type"></a>type</h4><p>表示类型，只能是下几种：</p>
+<ul>
+<li><strong>feat: 新功能</strong></li>
+<li><strong>fix: 修复问题</strong></li>
+<li>docs: 修改文档</li>
+<li>style: 修改代码格式，不影响代码逻辑</li>
+<li>refactor: 重构代码，理论上不影响现有功能</li>
+<li><strong>perf: 提升性能</strong></li>
+<li>test: 增加修改测试用例</li>
+<li>chore: 改变构建流程、或者增加依赖库、工具等</li>
+<li>revert: 回滚到上一个版本</li>
+</ul>
+<h4 id="subject"><a href="#subject" class="headerlink" title="subject"></a>subject</h4><p>这次提交的简要描述，不要超过一行。</p>
+<h2 id="body"><a href="#body" class="headerlink" title="body"></a>body</h2><p>这次提交的详细描述，是选填项，可以多行。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat: 增加座席绑定功能</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fix: 修复入场不能自动释放的bug</span><br><span class="line"></span><br><span class="line">增加定时任务，每天凌晨跑一次</span><br><span class="line">自动离场时忽略未支付订单</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perf: 优化生日筛选逻辑</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docs: 更新README</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">refactor: 将helper核心逻辑封装，简化代码</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/05/29/js-date-in-safari/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2018/07/05/git-commit-log/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
