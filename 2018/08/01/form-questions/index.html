@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Form常见问题 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:12345&amp;lt;form  [formGroup]=&quot;targetForm&quot; (ngSubmit)=&quot;save()&quot;    onkeypress=&quot;if(event.keyCode==13||event.which==13)&amp;#123;return false;&amp;#125;&quot;&amp;gt;   &amp;lt;inpu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Form常见问题">
+<meta property="og:url" content="https://blog.json.Fit/2018/08/01/form-questions/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:12345&amp;lt;form  [formGroup]=&quot;targetForm&quot; (ngSubmit)=&quot;save()&quot;    onkeypress=&quot;if(event.keyCode==13||event.which==13)&amp;#123;return false;&amp;#125;&quot;&amp;gt;   &amp;lt;inpu">
+<meta property="og:updated_time" content="2018-08-01T11:29:13.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Form常见问题">
+<meta name="twitter:description" content="一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:12345&amp;lt;form  [formGroup]=&quot;targetForm&quot; (ngSubmit)=&quot;save()&quot;    onkeypress=&quot;if(event.keyCode==13||event.which==13)&amp;#123;return false;&amp;#125;&quot;&amp;gt;   &amp;lt;inpu">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、input框中回车，触发form中的submit。解决方法添加onkeypress事件"><span class="toc-text">一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法："><span class="toc-text">二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、谷歌浏览器表单自动填充问题"><span class="toc-text">三、谷歌浏览器表单自动填充问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、表单验证相关问题"><span class="toc-text">四、表单验证相关问题</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-form-questions" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Form常见问题</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.08.01</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>谢春燕</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2018/08/01/form-questions/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="一、input框中回车，触发form中的submit。解决方法添加onkeypress事件"><a href="#一、input框中回车，触发form中的submit。解决方法添加onkeypress事件" class="headerlink" title="一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:"></a>一、input框中回车，触发form中的submit。解决方法添加onkeypress事件:</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>  [<span class="attr">formGroup</span>]=<span class="string">"targetForm"</span> (<span class="attr">ngSubmit</span>)=<span class="string">"save()"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onkeypress</span>=<span class="string">"if(event.keyCode==13||event.which==13)&#123;return false;&#125;"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法："><a href="#二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法：" class="headerlink" title="二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法："></a>二、火狐浏览器中点击某非提交按钮触发提交事件。解决方法：</h3><p>需设置非提交按钮的type为button，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>  [<span class="attr">formGroup</span>]=<span class="string">"targetForm"</span> (<span class="attr">ngSubmit</span>)=<span class="string">"save()"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">onkeypress</span>=<span class="string">"if(event.keyCode==13||event.which==13)&#123;return false;&#125;"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> (<span class="attr">click</span>)=<span class="string">"reset()"</span>&gt;</span>重置<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、谷歌浏览器表单自动填充问题"><a href="#三、谷歌浏览器表单自动填充问题" class="headerlink" title="三、谷歌浏览器表单自动填充问题"></a>三、谷歌浏览器表单自动填充问题</h3><p>谷歌浏览器中，当input type=text与type=password相邻时，input框会自动填充用户名。</p>
+<p>解决方法为：设置两个form将两个input隔离开。如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="四、表单验证相关问题"><a href="#四、表单验证相关问题" class="headerlink" title="四、表单验证相关问题"></a>四、表单验证相关问题</h3><ol>
+<li>表单提交的时候如何触发表单验证，验证通过再发请求？</li>
+</ol>
+<p>方法：提交时判断form.valid，会自动触发表单校验。举个栗子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">"targetForm"</span> (<span class="attr">ngSubmit</span>)=<span class="string">"save()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">formControlName</span>=<span class="string">"name"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">targetForm: <span class="built_in">any</span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> fb: FormBuilder</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>.targetForm = fb.group(&#123;</span><br><span class="line">        name: [<span class="string">''</span>, Validators.required]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">save() &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.targetForm.valid) &#123;</span><br><span class="line">        <span class="comment">// 验证通过</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>FormGroup中嵌套FormGroup时，提交验证时，没有自动验证FormGroup内层。</li>
+</ol>
+<p>这种问题，多半是因为使用内部FormGroup时，设置的是formGroup而不是formGroupName，标准写法如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">"targetForm"</span> (<span class="attr">ngSubmit</span>)=<span class="string">"save()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">formControlName</span>=<span class="string">"name"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">formGroupName</span>=<span class="string">"test"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">formControlName</span>=<span class="string">"name"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">targetForm: <span class="built_in">any</span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> fb: FormBuilder</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>.targetForm = fb.group(&#123;</span><br><span class="line">        name: [<span class="string">''</span>, Validators.required],</span><br><span class="line">        test: fb.group(&#123;</span><br><span class="line">            name: [<span class="string">''</span>, Validators.required],</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">save() &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.targetForm.valid) &#123;</span><br><span class="line">        <span class="comment">// 验证通过</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>FormGroup中嵌套FormArray，提交表单时formArray没有自动验证。解决方法如下：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">"targetForm"</span> (<span class="attr">ngSubmit</span>)=<span class="string">"save()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">formControlName</span>=<span class="string">"name"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> (<span class="attr">click</span>)=<span class="string">"addTest()"</span>&gt;</span>新增<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">formArrayName</span>=<span class="string">"testArr"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngFor</span>=<span class="string">"let item of testArr;let i = index"</span> [<span class="attr">formGroupName</span>]=<span class="string">"i"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">formControlName</span>=<span class="string">"name"</span> <span class="attr">required</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>保存<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">targetForm: <span class="built_in">any</span></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> fb: FormBuilder</span>)&#123;</span><br><span class="line">    <span class="keyword">this</span>.targetForm = fb.group(&#123;</span><br><span class="line">        name: [<span class="string">''</span>, Validators.required],</span><br><span class="line">        test: fb.array([]),</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 因为 FormArray 表示的是数组中具有未知数量的控件，因此通过 getter 来访问控件比较便捷，也容易复用。使用 getter 语法来创建一个名为 testArr 的类属性，以便从父控件 FormGroup 中接收绰号的 FormArray 控件。</span></span><br><span class="line"> <span class="keyword">get</span> testArr() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.targetForm.get(<span class="string">'testArr'</span>) <span class="keyword">as</span> FormArray</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增</span></span><br><span class="line">addTest() &#123;</span><br><span class="line">     <span class="keyword">const</span> group = <span class="keyword">this</span>.fb.group(&#123;</span><br><span class="line">        name: [<span class="string">''</span>, Validators.required],</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">this</span>.testArr.push(group)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">save() &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.targetForm.valid) &#123;</span><br><span class="line">        <span class="comment">// 验证通过</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/08/01/debounce-vs-throttle/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2018/08/01/form-questions/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
