@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>小程序开发准则 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="使用 ES6 语法 不要用 var，常量用 const，变量用 let，let 越少越好 不要用 == 和 !=，请严格使用 === 和 !==   使用局部变量缓存反复查找的对象如果反复查找某对象，且该对象是：  全局变量 dom 查询结果 作用域链较深的对象  那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。 函数要封装坚决避免超长函数：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序开发准则">
+<meta property="og:url" content="https://blog.json.Fit/2018/12/05/mina-rules/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="使用 ES6 语法 不要用 var，常量用 const，变量用 let，let 越少越好 不要用 == 和 !=，请严格使用 === 和 !==   使用局部变量缓存反复查找的对象如果反复查找某对象，且该对象是：  全局变量 dom 查询结果 作用域链较深的对象  那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。 函数要封装坚决避免超长函数：">
+<meta property="og:updated_time" content="2018-12-05T04:54:54.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序开发准则">
+<meta name="twitter:description" content="使用 ES6 语法 不要用 var，常量用 const，变量用 let，let 越少越好 不要用 == 和 !=，请严格使用 === 和 !==   使用局部变量缓存反复查找的对象如果反复查找某对象，且该对象是：  全局变量 dom 查询结果 作用域链较深的对象  那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。 函数要封装坚决避免超长函数：">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-ES6-语法"><span class="toc-text">使用 ES6 语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用局部变量缓存反复查找的对象"><span class="toc-text">使用局部变量缓存反复查找的对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数要封装"><span class="toc-text">函数要封装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量命名要友好"><span class="toc-text">变量命名要友好</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打印调试"><span class="toc-text">打印调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络请求"><span class="toc-text">网络请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#eventbus-跨组件通信"><span class="toc-text">eventbus 跨组件通信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#utils-js-工具类"><span class="toc-text">utils.js 工具类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日期处理类"><span class="toc-text">日期处理类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地存储"><span class="toc-text">本地存储</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-mina-rules" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">小程序开发准则</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.12.05</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2018/12/05/mina-rules/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="使用-ES6-语法"><a href="#使用-ES6-语法" class="headerlink" title="使用 ES6 语法"></a>使用 ES6 语法</h2><ul>
+<li>不要用 var，常量用 const，变量用 let，let 越少越好</li>
+<li>不要用 == 和 !=，请严格使用 === 和 !== </li>
+</ul>
+<h2 id="使用局部变量缓存反复查找的对象"><a href="#使用局部变量缓存反复查找的对象" class="headerlink" title="使用局部变量缓存反复查找的对象"></a>使用局部变量缓存反复查找的对象</h2><p>如果反复查找某对象，且该对象是：</p>
+<ul>
+<li>全局变量</li>
+<li>dom 查询结果</li>
+<li>作用域链较深的对象</li>
+</ul>
+<p>那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。</p>
+<h2 id="函数要封装"><a href="#函数要封装" class="headerlink" title="函数要封装"></a>函数要封装</h2><p>坚决避免超长函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isHotel = <span class="string">'true'</span></span><br><span class="line">    <span class="comment">//....... 此处省略500行</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个函数只干一件事，尽量不要超过20行。</p>
+<a id="more"></a>
+<h2 id="变量命名要友好"><a href="#变量命名要友好" class="headerlink" title="变量命名要友好"></a>变量命名要友好</h2><p>变量命名：首字母小写，驼峰式命名，匈牙利命名<br>函数命名：首字母小写，驼峰式命名，统一使用动词或者动词+名词形式</p>
+<blockquote>
+<p>匈牙利命名法语法：变量名＝类型＋对象描述</p>
+<ul>
+<li>类型：指变量的类型</li>
+<li>对象描述：指对象名字全称或名字的一部分，要求有明确含义，命名要容易记忆容易理解。</li>
+</ul>
+</blockquote>
+<p>不要出现 data.data，res.data 就强很多。</p>
+<h2 id="打印调试"><a href="#打印调试" class="headerlink" title="打印调试"></a>打印调试</h2><p>仅在开发阶段打印到控制台，上线之后不要打印调试信息，用下面 debug.log 代替 console.log，上线之前把 env 改成 production 即可。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// debug.js</span></span><br><span class="line"><span class="keyword">const</span> env = <span class="string">'develop'</span></span><br><span class="line"><span class="comment">// const env = 'production'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">empty</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  log: env === <span class="string">'develop'</span> ? <span class="built_in">console</span>.log : empty</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h2><blockquote>
+<ul>
+<li><code>get(url, params)</code></li>
+<li><code>post(url, data, params)</code></li>
+<li><code>put(url, data, params)</code></li>
+<li><code>delete(url, params)</code></li>
+</ul>
+<p>注意：查询参数对象放在 params.query 中，全部返回 promise，res.ok 代表返回成功，状态码是 2xx。</p>
+</blockquote>
+<p>下面的网络请求封装，有3个优势：</p>
+<ol>
+<li>全局拦截器，所有网络请求的总入口</li>
+<li>把回调函数转换为 promise</li>
+<li>调用方式跟 feathersjs 函数一致</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = getApp()</span><br><span class="line"><span class="keyword">const</span> debug = <span class="built_in">require</span>(<span class="string">'../utils/debug.js'</span>)</span><br><span class="line"><span class="keyword">const</span> host = <span class="string">'http://127.0.0.1:3000'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHeader</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> header = &#123;</span><br><span class="line">    <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>,</span><br><span class="line">    <span class="string">"Authorization"</span>: app.globalData.token</span><br><span class="line">  &#125;</span><br><span class="line">  debug.log(header)</span><br><span class="line">  <span class="keyword">return</span> header</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUrl</span>(<span class="params">url, query</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (query) &#123;</span><br><span class="line">    url = [url, getQueryString(query)].join(<span class="string">'?'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="regexp">/^https?:\/\//</span>.test(url) ? url : (host + url)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryString</span>(<span class="params">query</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(query),</span><br><span class="line">    queryStringArr = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = keys.length; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> key = keys[i],</span><br><span class="line">      value = query[key]</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> value === <span class="string">'object'</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> subKeys = <span class="built_in">Object</span>.keys(value)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>, sLen = subKeys.length; j &lt; sLen; j++) &#123;</span><br><span class="line">        <span class="keyword">const</span> subKey = subKeys[j],</span><br><span class="line">          subValue = value[subKey]</span><br><span class="line">        <span class="keyword">const</span> k = <span class="built_in">encodeURIComponent</span>(<span class="string">`<span class="subst">$&#123;key&#125;</span>[<span class="subst">$&#123;subKey&#125;</span>]`</span>)</span><br><span class="line">        <span class="keyword">const</span> v = <span class="built_in">encodeURIComponent</span>(subValue)</span><br><span class="line">        queryStringArr.push(<span class="string">`<span class="subst">$&#123;k&#125;</span>=<span class="subst">$&#123;v&#125;</span>`</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> k = <span class="built_in">encodeURIComponent</span>(key)</span><br><span class="line">      <span class="keyword">const</span> v = <span class="built_in">encodeURIComponent</span>(query[key])</span><br><span class="line">      queryStringArr.push(<span class="string">`<span class="subst">$&#123;k&#125;</span>=<span class="subst">$&#123;v&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> queryStringArr.join(<span class="string">'&amp;'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">url, params = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: getUrl(url, params.query),</span><br><span class="line">      method: <span class="string">'GET'</span>,</span><br><span class="line">      header: getHeader(),</span><br><span class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        resolve(wrap(res))</span><br><span class="line">        debug.log(res)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">        debug.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">post</span>(<span class="params">url, data, params = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  debug.log(url, data, params)</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: getUrl(url, params.query),</span><br><span class="line">      method: <span class="string">'POST'</span>,</span><br><span class="line">      data,</span><br><span class="line">      header: getHeader(),</span><br><span class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        resolve(wrap(res))</span><br><span class="line">        debug.log(res)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">        debug.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">put</span>(<span class="params">url, data, params = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  debug.log(url, data, params)</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: getUrl(url, params.query),</span><br><span class="line">      method: <span class="string">'PUT'</span>,</span><br><span class="line">      data,</span><br><span class="line">      header: getHeader(),</span><br><span class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        resolve(wrap(res))</span><br><span class="line">        debug.log(res)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">        debug.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">remove</span>(<span class="params">url, params = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    wx.request(&#123;</span><br><span class="line">      url: getUrl(url, params.query),</span><br><span class="line">      method: <span class="string">'DELETE'</span>,</span><br><span class="line">      header: getHeader(),</span><br><span class="line">      success: <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">        resolve(wrap(res))</span><br><span class="line">        debug.log(res)</span><br><span class="line">      &#125;,</span><br><span class="line">      fail: <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">        reject(err)</span><br><span class="line">        debug.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">wrap</span>(<span class="params">res</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> status = res.statusCode</span><br><span class="line">  <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">    res.ok = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  get,</span><br><span class="line">  post,</span><br><span class="line">  put,</span><br><span class="line">  remove</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="eventbus-跨组件通信"><a href="#eventbus-跨组件通信" class="headerlink" title="eventbus 跨组件通信"></a>eventbus 跨组件通信</h2><p>全局事件通信类：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 孙子组件跨越父组件直接传参给爷爷组件</span></span><br><span class="line">eventbus.emit(<span class="string">'loadMore'</span>, <span class="string">'waterfall'</span>)</span><br><span class="line"><span class="comment">// 爷爷组件接收孙子组件传来的参数</span></span><br><span class="line">eventbus.on(<span class="string">'loadMore'</span>, <span class="keyword">this</span>.loadMore.bind(<span class="keyword">this</span>))</span><br></pre></td></tr></table></figure>
+<p>核心代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventBus</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.cache = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  on(type, handler) &#123;</span><br><span class="line">    <span class="keyword">let</span> callbacks = <span class="keyword">this</span>.cache[type] || (<span class="keyword">this</span>.cache[type] = [])</span><br><span class="line">    <span class="keyword">if</span>(!callbacks.includes(handler)) callbacks.push(handler)</span><br><span class="line">    <span class="built_in">console</span>.log(callbacks)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  emit(type, ...args) &#123;</span><br><span class="line">    <span class="keyword">const</span> callbacks = <span class="keyword">this</span>.cache[type]</span><br><span class="line">    <span class="keyword">if</span>(!callbacks) <span class="keyword">return</span></span><br><span class="line">    callbacks.forEach(<span class="function"><span class="params">handler</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        handler(...args)</span><br><span class="line">      &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  off(type, handler) &#123;</span><br><span class="line">    <span class="keyword">let</span> callbacks = <span class="keyword">this</span>.cache[type]</span><br><span class="line">    <span class="keyword">if</span>(!callbacks) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span>(!handler)&#123;</span><br><span class="line">      <span class="keyword">this</span>.cache[type] = []</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> i = callbacks.indexOf(handler)</span><br><span class="line">      <span class="keyword">if</span>(i !== <span class="number">-1</span>) callbacks.splice(i,<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">new</span> EventBus()</span><br></pre></td></tr></table></figure>
+<h2 id="utils-js-工具类"><a href="#utils-js-工具类" class="headerlink" title="utils.js 工具类"></a>utils.js 工具类</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 深度获取对象属性，避免 undefined 错误</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepGet</span>(<span class="params">obj, key, defaultValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!obj) <span class="keyword">return</span> defaultValue</span><br><span class="line">  <span class="keyword">if</span> (!key) <span class="keyword">return</span> obj</span><br><span class="line">  <span class="keyword">const</span> result = key</span><br><span class="line">    .split(<span class="string">'.'</span>)</span><br><span class="line">    .reduce(</span><br><span class="line">      (it, key) =&gt; (it &amp;&amp; <span class="keyword">typeof</span> it === <span class="string">'object'</span> ? it[key] : defaultValue),</span><br><span class="line">      obj</span><br><span class="line">    )</span><br><span class="line">  <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个页面共用的代码放在这里</span></span><br></pre></td></tr></table></figure>
+<h2 id="日期处理类"><a href="#日期处理类" class="headerlink" title="日期处理类"></a>日期处理类</h2><p>使用 dayjs 替换 moment.js，一模一样的 api，但拥有更小的体积。</p>
+<ul>
+<li>dayjs：7k</li>
+<li>moment：132k</li>
+</ul>
+<h2 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h2><p>每个微信小程序都可以有自己的本地缓存，可以通过下面的函数对本地缓存进行设置、获取和清理。</p>
+<ul>
+<li><code>wx.setStorage</code>、<code>wx.setStorageSync</code></li>
+<li><code>wx.getStorage</code>、<code>wx.getStorageSync</code></li>
+<li><code>wx.clearStorage</code>、<code>wx.clearStorageSync</code> </li>
+</ul>
+<p>同一个微信用户，同一个小程序 storage 上限为 10MB。localStorage 以用户维度隔离，同一台设备上，A 用户无法读取到 B 用户的数据。其中 localStorage 是持久存储的，但不建议将关键信息全部存在 localStorage，以防用户换设备的情况。</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/08/01/form-questions/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2018/12/05/mina-rules/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
