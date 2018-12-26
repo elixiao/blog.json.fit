@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://blog.json.Fit/2018/12/05/mina-rules/index.html">
 <meta property="og:site_name" content="json.fit 团队博客">
 <meta property="og:description" content="使用 ES6 语法 不要用 var，常量用 const，变量用 let，let 越少越好 不要用 == 和 !=，请严格使用 === 和 !==   使用局部变量缓存反复查找的对象如果反复查找某对象，且该对象是：  全局变量 dom 查询结果 作用域链较深的对象  那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。 函数要封装坚决避免超长函数：">
-<meta property="og:updated_time" content="2018-12-10T20:26:44.921Z">
+<meta property="og:updated_time" content="2018-12-26T05:25:49.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小程序开发准则">
 <meta name="twitter:description" content="使用 ES6 语法 不要用 var，常量用 const，变量用 let，let 越少越好 不要用 == 和 !=，请严格使用 === 和 !==   使用局部变量缓存反复查找的对象如果反复查找某对象，且该对象是：  全局变量 dom 查询结果 作用域链较深的对象  那么一定要换成局部变量，千万不要出现 data.data.data.xxx，因为作用域链太深且反复使用。 函数要封装坚决避免超长函数：">
@@ -203,10 +203,11 @@
 <h2 id="wxs-过滤器"><a href="#wxs-过滤器" class="headerlink" title="wxs 过滤器"></a>wxs 过滤器</h2><p>在 <code>pages/filter.wxs</code> 中定义一些常用的过滤器，使用的时候在 wxml 中引用：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">wxs</span> <span class="attr">src</span>=<span class="string">"../filter.wxs"</span> <span class="attr">module</span>=<span class="string">"filter"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <ol>
-<li><code>formatDate</code> 格式化日期</li>
+<li><p><code>formatDate</code> 格式化日期</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;filter.formatDate(date,'MM月DD日 HH:mm')&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;filter.formatDate(date,'MM月DD日 HH:mm')&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</code></pre><ol start="2">
+<ol start="2">
 <li><p><code>formatMoney</code> 格式化价格</p>
  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;filter.formatMoney(123.456)&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -233,7 +234,7 @@
     <a class="show pull-left" href="/2018/08/01/form-questions/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2018/12/26/js-calculate-earth-distance/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

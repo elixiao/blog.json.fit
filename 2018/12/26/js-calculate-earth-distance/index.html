@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>js 计算地球两点距离 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="下面的方法可计算地球两点间的距离： 1234567891011function getDistance(lng1, lat1, lng2, lat2) &amp;#123;  const radLat1 = lat1 * Math.PI / 180.0  const radLat2 = lat2 * Math.PI / 180.0  const a = radLat1 - radLat2  const b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 计算地球两点距离">
+<meta property="og:url" content="https://blog.json.Fit/2018/12/26/js-calculate-earth-distance/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="下面的方法可计算地球两点间的距离： 1234567891011function getDistance(lng1, lat1, lng2, lat2) &amp;#123;  const radLat1 = lat1 * Math.PI / 180.0  const radLat2 = lat2 * Math.PI / 180.0  const a = radLat1 - radLat2  const b">
+<meta property="og:updated_time" content="2018-12-26T05:25:49.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js 计算地球两点距离">
+<meta name="twitter:description" content="下面的方法可计算地球两点间的距离： 1234567891011function getDistance(lng1, lat1, lng2, lat2) &amp;#123;  const radLat1 = lat1 * Math.PI / 180.0  const radLat2 = lat2 * Math.PI / 180.0  const a = radLat1 - radLat2  const b">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-js-calculate-earth-distance" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">js 计算地球两点距离</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.12.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2018/12/26/js-calculate-earth-distance/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>下面的方法可计算地球两点间的距离：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDistance</span>(<span class="params">lng1, lat1, lng2, lat2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> radLat1 = lat1 * <span class="built_in">Math</span>.PI / <span class="number">180.0</span></span><br><span class="line">  <span class="keyword">const</span> radLat2 = lat2 * <span class="built_in">Math</span>.PI / <span class="number">180.0</span></span><br><span class="line">  <span class="keyword">const</span> a = radLat1 - radLat2</span><br><span class="line">  <span class="keyword">const</span> b = lng1 * <span class="built_in">Math</span>.PI / <span class="number">180.0</span> - lng2 * <span class="built_in">Math</span>.PI / <span class="number">180.0</span></span><br><span class="line">  <span class="keyword">let</span> s = <span class="number">2</span> * <span class="built_in">Math</span>.asin(<span class="built_in">Math</span>.sqrt(<span class="built_in">Math</span>.pow(<span class="built_in">Math</span>.sin(a / <span class="number">2</span>), <span class="number">2</span>) +</span><br><span class="line">    <span class="built_in">Math</span>.cos(radLat1) * <span class="built_in">Math</span>.cos(radLat2) * <span class="built_in">Math</span>.pow(<span class="built_in">Math</span>.sin(b / <span class="number">2</span>), <span class="number">2</span>)))</span><br><span class="line">  s = s * <span class="number">6378.137</span></span><br><span class="line">  s = <span class="built_in">Math</span>.round(s * <span class="number">10000</span>) / <span class="number">10000</span></span><br><span class="line">  <span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getDistance(<span class="number">118.814</span>, <span class="number">31.947</span>, <span class="number">114.417</span>, <span class="number">38.045</span>)</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/12/05/mina-rules/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2018/12/26/js-calculate-earth-distance/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
