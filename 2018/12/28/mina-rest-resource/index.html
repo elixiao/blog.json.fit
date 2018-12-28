@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>小程序封装 RESTful 资源对象 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="基于 http 将 RESTful 资源封装成 sdk： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647const http = require(&apos;./http.js&apos;)class Feathers &amp;#123;  constructor(url, options) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序封装 RESTful 资源对象">
+<meta property="og:url" content="https://blog.json.Fit/2018/12/28/mina-rest-resource/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="基于 http 将 RESTful 资源封装成 sdk： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647const http = require(&apos;./http.js&apos;)class Feathers &amp;#123;  constructor(url, options) &amp;#12">
+<meta property="og:updated_time" content="2018-12-28T06:40:09.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序封装 RESTful 资源对象">
+<meta name="twitter:description" content="基于 http 将 RESTful 资源封装成 sdk： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647const http = require(&apos;./http.js&apos;)class Feathers &amp;#123;  constructor(url, options) &amp;#12">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-mina-rest-resource" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">小程序封装 RESTful 资源对象</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.12.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2018/12/28/mina-rest-resource/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>基于 http 将 RESTful 资源封装成 sdk：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'./http.js'</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Feathers</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(url, options) &#123;</span><br><span class="line">    <span class="keyword">this</span>.url = url</span><br><span class="line">    <span class="keyword">this</span>.options = options</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  filter(res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.ok) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.data</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> res</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  find(params) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.get(<span class="string">`/<span class="subst">$&#123;<span class="keyword">this</span>.url&#125;</span>`</span>, params).then(<span class="keyword">this</span>.filter)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get(id, params) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.get(<span class="string">`/<span class="subst">$&#123;<span class="keyword">this</span>.url&#125;</span>/<span class="subst">$&#123;id&#125;</span>`</span>, params).then(<span class="keyword">this</span>.filter)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  create(data, params) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(<span class="string">`/<span class="subst">$&#123;<span class="keyword">this</span>.url&#125;</span>`</span>, data, params).then(<span class="keyword">this</span>.filter)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  patch(id, data, params) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.put(<span class="string">`/<span class="subst">$&#123;<span class="keyword">this</span>.url&#125;</span>`</span>, data, params).then(<span class="keyword">this</span>.filter)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remove(id, params) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.remove(<span class="string">`/<span class="subst">$&#123;<span class="keyword">this</span>.url&#125;</span>/<span class="subst">$&#123;id&#125;</span>`</span>, params).then(<span class="keyword">this</span>.filter)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClubClass</span> <span class="keyword">extends</span> <span class="title">Feathers</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TopicClass</span> <span class="keyword">extends</span> <span class="title">Feathers</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Club = <span class="keyword">new</span> ClubClass(<span class="string">'clubs'</span>)</span><br><span class="line"><span class="keyword">const</span> Topic = <span class="keyword">new</span> TopicClass(<span class="string">'topics'</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  Club,</span><br><span class="line">  Topic</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;Club, Topic&#125; = <span class="built_in">require</span>(<span class="string">'../../utils/Alan.js'</span>)</span><br><span class="line"><span class="keyword">const</span> query = &#123;<span class="attr">$limit</span>: <span class="number">20</span>, <span class="attr">$skip</span>: <span class="number">10</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求门店列表</span></span><br><span class="line">Club.find(&#123;query&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*成功*/</span>&#125;).catch(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*失败*/</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求门店详情</span></span><br><span class="line">Club.get(<span class="string">'5a5f241c62142600074e7dd'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*成功*/</span>&#125;).catch(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*失败*/</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data = &#123;<span class="attr">name</span>: <span class="string">'新门店'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建门店</span></span><br><span class="line">Club.create(data).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*成功*/</span>&#125;).catch(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*失败*/</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改门店</span></span><br><span class="line">Club.patch(<span class="string">'5a5f241c62142600074e7dd'</span>, data).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*成功*/</span>&#125;).catch(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*失败*/</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除门店</span></span><br><span class="line">Club.remove(<span class="string">'5a5f241c62142600074e7dd'</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*成功*/</span>&#125;).catch(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">/*失败*/</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/12/26/js-calculate-earth-distance/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2018/12/28/mina-rest-resource/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
