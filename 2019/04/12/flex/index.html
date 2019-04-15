@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6067806-fe7d4b836458ef4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6067806-abb77294a73bbb9d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6067806-9ede66c97b7042d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-04-12T10:27:48.326Z">
+<meta property="og:updated_time" content="2019-04-15T09:48:48.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flex布局总结">
 <meta name="twitter:description" content="概述：1、flex，即 flexible box，中文为弹性盒子2、需要有flex container（弹性容器） 和 flex item（子元素），对弹性容器中的子元素进行弹性布局 1、元素正常情况下排列 123456789101112131415161718192021 .container &amp;#123;     width: 400px;     height:400px;     padd">
@@ -160,7 +160,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item color1&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item color2&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item color3&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <p><img src="https://upload-images.jianshu.io/upload_images/6067806-7b0c525181d8d0bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图1"></p>
 <p><strong>2、flex布局排列</strong></p>
-<p>会消除块状属性，所有与块状相关的属性将失效，比如块状元素会独占一行，如图01，设置flex后会在一行排列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    display: flex; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>会消除块状属性，所有与块状相关的属性将失效，比如块状元素会独占一行，如下图，设置flex后会在一行排列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    display: flex; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://upload-images.jianshu.io/upload_images/6067806-7850bca4e37c3763.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图2"></p>
 <p><strong>3、flex布局主轴方向</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    flex-direction: row | row-reverse | column | column-reverse; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
