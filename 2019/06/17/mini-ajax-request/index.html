@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>手写轻量级 http 库 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364functio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手写轻量级 http 库">
+<meta property="og:url" content="https://blog.json.Fit/2019/06/17/mini-ajax-request/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364functio">
+<meta property="og:updated_time" content="2019-06-17T10:21:47.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手写轻量级 http 库">
+<meta name="twitter:description" content="为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364functio">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-mini-ajax-request" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">手写轻量级 http 库</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.06.17</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/06/17/mini-ajax-request/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  options.method = (options.method || <span class="string">'GET'</span>).toUpperCase()</span><br><span class="line">  options.data = options.data || &#123;&#125;</span><br><span class="line">  options.params = formatParams(options.params)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> xhr</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">window</span>.XMLHttpRequest) &#123;</span><br><span class="line">    xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    xhr = <span class="keyword">new</span> ActiveXObject(<span class="string">'Microsoft.XMLHTTP'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> status = xhr.status</span><br><span class="line">      <span class="keyword">const</span> json = <span class="built_in">JSON</span>.parse(xhr.responseText)</span><br><span class="line">      <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">        options.success &amp;&amp; options.success(json)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        options.fail &amp;&amp; options.fail(json)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (options.method === <span class="string">'GET'</span>) &#123;</span><br><span class="line">    xhr.open(<span class="string">'GET'</span>, options.url + options.params, <span class="literal">true</span>)</span><br><span class="line">    xhr.send(<span class="literal">null</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (options.method === <span class="string">'POST'</span>) &#123;</span><br><span class="line">    xhr.open(<span class="string">'POST'</span>, options.url + options.params, <span class="literal">true</span>)</span><br><span class="line">    xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">    xhr.send(<span class="built_in">JSON</span>.stringify(options.data))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formatParams</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (params === <span class="literal">undefined</span> || params === <span class="literal">null</span>) <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> params !== <span class="string">'object'</span>) <span class="keyword">return</span> <span class="string">'?'</span> + params.toString()</span><br><span class="line">  <span class="keyword">const</span> arr = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> params) &#123;</span><br><span class="line">    arr.push(<span class="built_in">encodeURIComponent</span>(key) + <span class="string">'='</span> + <span class="built_in">encodeURIComponent</span>(params[key]))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (arr.length) <span class="keyword">return</span> <span class="string">'?'</span> + arr.join(<span class="string">'&amp;'</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">request</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> success = <span class="function"><span class="params">res</span> =&gt;</span> resolve(res)</span><br><span class="line">    <span class="keyword">const</span> fail = <span class="function"><span class="params">err</span> =&gt;</span> reject(err)</span><br><span class="line">    ajax(&#123;...options, success, fail&#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsonp</span>(<span class="params">url, callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ref = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'script'</span>)[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">  <span class="built_in">window</span>.jsonpCallback = callback</span><br><span class="line">  script.src = url + (url.indexOf(<span class="string">'?'</span>) + <span class="number">1</span> ? <span class="string">'&amp;'</span> : <span class="string">'?'</span>) + <span class="string">'callback=jsonpCallback'</span></span><br><span class="line">  ref.parentNode.insertBefore(script, ref)</span><br><span class="line">  script.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.remove()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方法：</p>
+<ol>
+<li><p>回调</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http.ajax(&#123;</span><br><span class="line">  url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">  method: <span class="string">'get'</span>,</span><br><span class="line">  params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">  data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">response, xml</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'fail'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>promise</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http.request(&#123;</span><br><span class="line">    url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">    method: <span class="string">'post'</span>,</span><br><span class="line">    params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">    data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">.then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="3">
+<li><p>jsonp </p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.jsonp(<span class="string">'http://yoursite.com'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/04/12/flex/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/06/17/mini-ajax-request/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
