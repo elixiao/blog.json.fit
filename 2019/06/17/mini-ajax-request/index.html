@@ -21,7 +21,7 @@
 <meta property="og:url" content="https://blog.json.Fit/2019/06/17/mini-ajax-request/index.html">
 <meta property="og:site_name" content="json.fit 团队博客">
 <meta property="og:description" content="为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364functio">
-<meta property="og:updated_time" content="2019-06-17T10:21:47.727Z">
+<meta property="og:updated_time" content="2019-06-18T02:14:06.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手写轻量级 http 库">
 <meta name="twitter:description" content="为了加快手机端渲染速度，可以自己手写一个轻量级的 http 请求库，支持 ajax 回调，promise 和 jsonp 三种方法，具体代码如下： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364functio">
@@ -139,15 +139,15 @@
 <p>使用方法：</p>
 <ol>
 <li><p>回调</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http.ajax(&#123;</span><br><span class="line">  url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">  method: <span class="string">'get'</span>,</span><br><span class="line">  params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">  data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">response, xml</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'fail'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ajax(&#123;</span><br><span class="line">  url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">  method: <span class="string">'get'</span>,</span><br><span class="line">  params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">  data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  success: <span class="function"><span class="keyword">function</span> (<span class="params">response, xml</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(response)</span><br><span class="line">  &#125;,</span><br><span class="line">  fail: <span class="function"><span class="keyword">function</span> (<span class="params">status</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'fail'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>promise</p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http.request(&#123;</span><br><span class="line">    url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">    method: <span class="string">'post'</span>,</span><br><span class="line">    params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">    data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">.then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">request(&#123;</span><br><span class="line">    url: <span class="string">'http://yoursite.com'</span>,</span><br><span class="line">    method: <span class="string">'post'</span>,</span><br><span class="line">    params: &#123;&#125;, <span class="comment">// 查询参数</span></span><br><span class="line">    data: &#123;&#125;, <span class="comment">// POST body</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">.then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol start="3">
 <li><p>jsonp </p>
- <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.jsonp(<span class="string">'http://yoursite.com'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsonp(<span class="string">'http://yoursite.com'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -165,7 +165,7 @@
     <a class="show pull-left" href="/2019/04/12/flex/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2019/06/18/parse-url-search-params/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

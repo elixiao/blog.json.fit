@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>获取 URL 查询参数 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="如何从 url 从获取查询参数？有两种方法：  使用 URLSearchParams 解析  123const params = new URLSearchParams(location.search)const seller = params.get(&apos;seller&apos;)console.log(seller)  大部分现在浏览器都支持 URLSearchParams，主要是 IE 不支持，不过影响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="获取 URL 查询参数">
+<meta property="og:url" content="https://blog.json.Fit/2019/06/18/parse-url-search-params/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="如何从 url 从获取查询参数？有两种方法：  使用 URLSearchParams 解析  123const params = new URLSearchParams(location.search)const seller = params.get(&apos;seller&apos;)console.log(seller)  大部分现在浏览器都支持 URLSearchParams，主要是 IE 不支持，不过影响">
+<meta property="og:updated_time" content="2019-06-18T02:14:06.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="获取 URL 查询参数">
+<meta name="twitter:description" content="如何从 url 从获取查询参数？有两种方法：  使用 URLSearchParams 解析  123const params = new URLSearchParams(location.search)const seller = params.get(&apos;seller&apos;)console.log(seller)  大部分现在浏览器都支持 URLSearchParams，主要是 IE 不支持，不过影响">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-parse-url-search-params" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">获取 URL 查询参数</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.06.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/06/18/parse-url-search-params/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>如何从 url 从获取查询参数？有两种方法：</p>
+<ol>
+<li><p>使用 URLSearchParams 解析</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> params = <span class="keyword">new</span> URLSearchParams(location.search)</span><br><span class="line"><span class="keyword">const</span> seller = params.get(<span class="string">'seller'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(seller)</span><br></pre></td></tr></table></figure>
+<p> 大部分现在浏览器都支持 <a href="">URLSearchParams</a>，主要是 IE 不支持，不过影响不大，如有必要可以使用 <a href="https://github.com/jerrybendy/url-search-params-polyfill" target="_blank" rel="noopener">url-search-params-polyfill</a> 垫片。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>使用 <code>&lt;a&gt;</code> 标签的相关属性</p>
+<p> 下面的方法非常通用，可以用来解析各种参数：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseURL</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//创建一个 a 标签，并将 url 赋值给标签的 href 属性。</span></span><br><span class="line">  <span class="keyword">const</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">  a.href = url</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    source: url,</span><br><span class="line">    protocol: a.protocol.replace(<span class="string">':'</span>, <span class="string">''</span>), <span class="comment">// 协议</span></span><br><span class="line">    host: a.hostname,   <span class="comment">// 主机名称</span></span><br><span class="line">    port: a.port,   <span class="comment">// 端口号</span></span><br><span class="line">    query: a.search,  <span class="comment">// 查询字符串</span></span><br><span class="line">    params: (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  <span class="comment">// 查询参数</span></span><br><span class="line">      <span class="keyword">let</span> ret = &#123;&#125;,</span><br><span class="line">        seg = a.search.replace(<span class="regexp">/^\?/</span>, <span class="string">''</span>).split(<span class="string">'&amp;'</span>),</span><br><span class="line">        len = seg.length, i = <span class="number">0</span>, s</span><br><span class="line">      <span class="keyword">for</span> (; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!seg[i]) &#123;</span><br><span class="line">          <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        s = seg[i].split(<span class="string">'='</span>)</span><br><span class="line">        ret[s[<span class="number">0</span>]] = <span class="built_in">decodeURIComponent</span>(s[<span class="number">1</span>])</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> ret</span><br><span class="line">    &#125;)(),</span><br><span class="line">    file: (a.pathname.match(<span class="regexp">/\/([^\/?#]+)$/i</span>) || [, <span class="string">''</span>])[<span class="number">1</span>], <span class="comment">// 文件名</span></span><br><span class="line">    hash: a.hash.replace(<span class="string">'#'</span>, <span class="string">''</span>), <span class="comment">// 哈希参数</span></span><br><span class="line">    path: a.pathname.replace(<span class="regexp">/^([^\/])/</span>, <span class="string">'/$1'</span>), <span class="comment">// 路径</span></span><br><span class="line">    relative: (a.href.match(<span class="regexp">/tps?:\/\/[^\/]+(.+)/</span>) || [, <span class="string">''</span>])[<span class="number">1</span>],  <span class="comment">// 相对路径</span></span><br><span class="line">    segments: a.pathname.replace(<span class="regexp">/^\//</span>, <span class="string">''</span>).split(<span class="string">'/'</span>) <span class="comment">// 路径片段</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 使用方法：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(parseURL(location.href).params)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/06/17/mini-ajax-request/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/06/18/parse-url-search-params/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
