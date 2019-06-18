@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>money和number指令 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="指令," />
+  
+
+  <meta name="description" content="money 应用场景 输入框中只能输入金额数字，限制小数点位数  实例代码   12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import &amp;#123;Directive, HostListener, Input&amp;#125; from &apos;@angular/core&apos;@">
+<meta name="keywords" content="指令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="money和number指令">
+<meta property="og:url" content="https://blog.json.Fit/2019/06/18/money-and-number-directive/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="money 应用场景 输入框中只能输入金额数字，限制小数点位数  实例代码   12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import &amp;#123;Directive, HostListener, Input&amp;#125; from &apos;@angular/core&apos;@">
+<meta property="og:updated_time" content="2019-06-18T09:00:21.912Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="money和number指令">
+<meta name="twitter:description" content="money 应用场景 输入框中只能输入金额数字，限制小数点位数  实例代码   12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import &amp;#123;Directive, HostListener, Input&amp;#125; from &apos;@angular/core&apos;@">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#money"><span class="toc-text">money</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#number"><span class="toc-text">number</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-money-and-number-directive" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">money和number指令</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.06.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>谢春燕</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/06/18/money-and-number-directive/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="money"><a href="#money" class="headerlink" title="money"></a>money</h2><ol>
+<li><p><strong>应用场景</strong></p>
+<p>输入框中只能输入金额数字，限制小数点位数</p>
+</li>
+<li><p><strong>实例代码</strong></p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Directive, HostListener, Input&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[money]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> MoneyDirective &#123;</span><br><span class="line">  <span class="comment">// 小数点位数</span></span><br><span class="line">  <span class="meta">@Input</span>() decimal = <span class="number">4</span></span><br><span class="line">  <span class="comment">// 金额最大值</span></span><br><span class="line">  <span class="meta">@Input</span>() maxMoney</span><br><span class="line">  <span class="comment">// 是否为负数</span></span><br><span class="line">  <span class="meta">@Input</span>() negative = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">'keypress'</span>, [<span class="string">'$event'</span>])</span><br><span class="line">  keypressEvent(event) &#123;</span><br><span class="line">    <span class="keyword">const</span> inputValue = event.target.value</span><br><span class="line">    <span class="keyword">if</span> ((((<span class="keyword">this</span>.negative &amp;&amp; event.keyCode !== <span class="number">45</span>) || !<span class="keyword">this</span>.negative) &amp;&amp; event.keyCode !== <span class="number">46</span> &amp;&amp; event.keyCode &lt; <span class="number">48</span>) || event.keyCode &gt; <span class="number">57</span>) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断已经有负号时不可再次输入负号</span></span><br><span class="line">    <span class="keyword">if</span> (event.keyCode === <span class="number">45</span> &amp;&amp; (inputValue)) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断当有小数点的时候不能再输小数点，首位不能输入小数点，小数点不能紧接着负号输入</span></span><br><span class="line">    <span class="keyword">if</span> (event.keyCode === <span class="number">46</span> &amp;&amp; (inputValue &amp;&amp; inputValue.indexOf(<span class="string">'.'</span>) &gt; <span class="number">0</span> || inputValue.length === <span class="number">0</span> || inputValue === <span class="string">'-'</span>)) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断小数点后大于限制位是不能再输入</span></span><br><span class="line">    <span class="keyword">if</span> (inputValue &amp;&amp; inputValue.toString().split(<span class="string">'.'</span>).length &gt; <span class="number">1</span></span><br><span class="line">      &amp;&amp; inputValue.toString().split(<span class="string">'.'</span>)[<span class="number">1</span>].length &gt;= <span class="keyword">this</span>.decimal) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 若有最大金额，则不能超过最大值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.maxMoney &amp;&amp; inputValue &gt; <span class="keyword">this</span>.maxMoney) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">'keyup'</span>, [<span class="string">'$event'</span>])</span><br><span class="line">  keyupEvent(event) &#123;</span><br><span class="line">    <span class="keyword">const</span> inputValue = event.target.value</span><br><span class="line">    <span class="keyword">if</span> (inputValue === <span class="string">'00'</span>) &#123;</span><br><span class="line">      event.target.value = <span class="string">''</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="number"><a href="#number" class="headerlink" title="number"></a>number</h2><ol>
+<li><p><strong>应用场景</strong></p>
+<p>输入框中只能输入数字</p>
+</li>
+<li><p><strong>实例代码</strong></p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Directive, HostListener, Input&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[number]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> NumberDirective &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">'keypress'</span>, [<span class="string">'$event'</span>])</span><br><span class="line">  keypressEvent(event) &#123;</span><br><span class="line">   <span class="keyword">if</span> (event.keyCode &lt; <span class="number">48</span> || event.keyCode &gt; <span class="number">57</span>) &#123;</span><br><span class="line">      event.returnValue = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>如果定义了指令，则定义组件的时候需要注意Input字段名不可与指令名重名，否则会被同时识别为使用指令</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/06/18/parse-url-search-params/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/06/18/file-download/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/06/18/money-and-number-directive/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
