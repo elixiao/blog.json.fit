@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Less动态计算高度(height)问题 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="less," />
+  
+
+  <meta name="description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
+<meta name="keywords" content="less">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less动态计算高度(height)问题">
+<meta property="og:url" content="https://blog.json.Fit/2019/08/06/less-calculate-height/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
+<meta property="og:updated_time" content="2019-08-06T06:42:19.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Less动态计算高度(height)问题">
+<meta name="twitter:description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-less-calculate-height" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Less动态计算高度(height)问题</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.08.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>秦小静</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/08/06/less-calculate-height/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。<br><strong>问题</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  height: calc(100% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o</p>
+<hr>
+<p><strong>解决方法</strong><br>解决方法也挺简单，加上~用””包起来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  height: calc(~&quot;100% - 50px&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可如果要用变量怎么用呢？也不复杂，像下面这样就搞定啦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  @cap: 50px;</span><br><span class="line">  height: calc(~&quot;100% - @&#123;cap&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/06/angular-safe-html-pipe/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/08/06/less-calculate-height/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
