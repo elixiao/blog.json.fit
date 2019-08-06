@@ -7,25 +7,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Less动态计算高度(height)问题 | json.fit 团队博客</title>
+  <title>moment格式化时间 | json.fit 团队博客</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="less," />
+    <meta name="keywords" content="moment," />
   
 
-  <meta name="description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
-<meta name="keywords" content="less">
+  <meta name="description" content="moment 格式化在项目中进行列表的时间筛选时，之前一直使用moment(XXX).format(),得到的格式如下，eg： 12createdAt[$gte]: 2019-08-06T00:00:00+08:00createdAt[$lte]: 2019-08-15T23:59:59+08:00 时间只能精确到时分秒，不能把毫秒也传给后端，这样就导致2019-08-15T23:59:59.88">
+<meta name="keywords" content="moment">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Less动态计算高度(height)问题">
-<meta property="og:url" content="https://blog.json.Fit/2019/08/06/less-calculate-height/index.html">
+<meta property="og:title" content="moment格式化时间">
+<meta property="og:url" content="https://blog.json.Fit/2019/08/06/moment-format/index.html">
 <meta property="og:site_name" content="json.fit 团队博客">
-<meta property="og:description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
-<meta property="og:updated_time" content="2019-08-06T06:42:19.443Z">
+<meta property="og:description" content="moment 格式化在项目中进行列表的时间筛选时，之前一直使用moment(XXX).format(),得到的格式如下，eg： 12createdAt[$gte]: 2019-08-06T00:00:00+08:00createdAt[$lte]: 2019-08-15T23:59:59+08:00 时间只能精确到时分秒，不能把毫秒也传给后端，这样就导致2019-08-15T23:59:59.88">
+<meta property="og:updated_time" content="2019-08-06T06:51:55.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Less动态计算高度(height)问题">
-<meta name="twitter:description" content="近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。问题123.class &amp;#123;  height: calc(100% - 50px);&amp;#125; 谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o  解决方法解决方法也挺简单，加上~用””包起来。123.class &amp;#123;  height: calc(">
+<meta name="twitter:title" content="moment格式化时间">
+<meta name="twitter:description" content="moment 格式化在项目中进行列表的时间筛选时，之前一直使用moment(XXX).format(),得到的格式如下，eg： 12createdAt[$gte]: 2019-08-06T00:00:00+08:00createdAt[$lte]: 2019-08-15T23:59:59+08:00 时间只能精确到时分秒，不能把毫秒也传给后端，这样就导致2019-08-15T23:59:59.88">
 
   
 
@@ -98,12 +98,17 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#moment-格式化"><span class="toc-text">moment 格式化</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
-   <article id="post-less-calculate-height" class="article article-type-post" itemprop="blogPost">
+   <article id="post-moment-format" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">Less动态计算高度(height)问题</h1>
+    <h1 class="post-title">moment格式化时间</h1>
 
     <div class="article-meta">
       <span>
@@ -124,7 +129,7 @@
       
         <span>
           <i class="icon-comment"></i>
-          <a href="https://blog.json.fit/2019/08/06/less-calculate-height/#disqus_thread"></a>
+          <a href="https://blog.json.fit/2019/08/06/moment-format/#disqus_thread"></a>
         </span>
       
 
@@ -135,11 +140,9 @@
 
   <div class="article-content">
     
-      <p>近一直在用less，基本上还挺好用的。但使用CSS3的calc函数时却发现个冲突问题。<br><strong>问题</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  height: calc(100% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>谁知道less自己就把它当表达式计算掉了，导致到浏览器那变成了calc(50%) o(╯□╰)o</p>
-<hr>
-<p><strong>解决方法</strong><br>解决方法也挺简单，加上~用””包起来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  height: calc(~&quot;100% - 50px&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可如果要用变量怎么用呢？也不复杂，像下面这样就搞定啦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.class &#123;</span><br><span class="line">  @cap: 50px;</span><br><span class="line">  height: calc(~&quot;100% - @&#123;cap&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+      <h1 id="moment-格式化"><a href="#moment-格式化" class="headerlink" title="moment 格式化"></a>moment 格式化</h1><p>在项目中进行列表的时间筛选时，之前一直使用<strong>moment(XXX).format()</strong>,得到的格式如下，eg：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">createdAt[$gte]: <span class="number">2019</span><span class="number">-08</span><span class="number">-06</span>T00:<span class="number">00</span>:<span class="number">00</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">createdAt[$lte]: <span class="number">2019</span><span class="number">-08</span><span class="number">-15</span>T23:<span class="number">59</span>:<span class="number">59</span>+<span class="number">08</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure>
+<p>时间只能精确到时分秒，不能把毫秒也传给后端，这样就导致2019-08-15T23:59:59.888这样时间的数据无法筛选出来，所以需要传给后端带毫秒的格式，找了好久，发现<strong>moment(XXX).toJSON()</strong>可以实现，eg：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">createdAt[$gte]: <span class="number">2019</span><span class="number">-08</span><span class="number">-05</span>T16:<span class="number">00</span>:<span class="number">00.000</span>Z</span><br><span class="line">createdAt[$lte]: <span class="number">2019</span><span class="number">-08</span><span class="number">-06</span>T15:<span class="number">59</span>:<span class="number">59.999</span>Z</span><br></pre></td></tr></table></figure></p>
 
     
   </div>
@@ -152,10 +155,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/08/06/angular-input-focus/">
+    <a class="show pull-left" href="/2019/08/06/less-calculate-height/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2019/08/06/moment-format/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -225,7 +228,7 @@
   <script>
     var disqus_shortname = 'jsonfit';
     
-    var disqus_url = 'https://blog.json.Fit/2019/08/06/less-calculate-height/';
+    var disqus_url = 'https://blog.json.Fit/2019/08/06/moment-format/';
     
     (function(){
       var dsq = document.createElement('script');

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>angular2输入框对焦不起作用 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="angular,directive," />
+  
+
+  <meta name="description" content="有时候页面搜索的时候，搜索框出来后希望输入框自动聚焦123&amp;lt;input type=&quot;text&quot; id=&quot;searchInput&quot; [(ngModel)]=&quot;search.keyword&quot; *ngIf=&quot;show&quot;       placeholder=&quot;输入关键字搜索&quot; autofocus       (keyup)=&quot;myKeyup($event)&quot;&amp;gt; 却发现这样只能第一次的时候自动聚">
+<meta name="keywords" content="angular,directive">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular2输入框对焦不起作用">
+<meta property="og:url" content="https://blog.json.Fit/2019/08/06/angular-input-focus/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="有时候页面搜索的时候，搜索框出来后希望输入框自动聚焦123&amp;lt;input type=&quot;text&quot; id=&quot;searchInput&quot; [(ngModel)]=&quot;search.keyword&quot; *ngIf=&quot;show&quot;       placeholder=&quot;输入关键字搜索&quot; autofocus       (keyup)=&quot;myKeyup($event)&quot;&amp;gt; 却发现这样只能第一次的时候自动聚">
+<meta property="og:updated_time" content="2019-08-06T06:51:55.385Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular2输入框对焦不起作用">
+<meta name="twitter:description" content="有时候页面搜索的时候，搜索框出来后希望输入框自动聚焦123&amp;lt;input type=&quot;text&quot; id=&quot;searchInput&quot; [(ngModel)]=&quot;search.keyword&quot; *ngIf=&quot;show&quot;       placeholder=&quot;输入关键字搜索&quot; autofocus       (keyup)=&quot;myKeyup($event)&quot;&amp;gt; 却发现这样只能第一次的时候自动聚">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-angular-input-focus" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">angular2输入框对焦不起作用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.08.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>秦小静</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/08/06/angular-input-focus/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>有时候页面搜索的时候，搜索框出来后希望输入框自动聚焦<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"searchInput"</span> [(<span class="attr">ngModel</span>)]=<span class="string">"search.keyword"</span> *<span class="attr">ngIf</span>=<span class="string">"show"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">placeholder</span>=<span class="string">"输入关键字搜索"</span> <span class="attr">autofocus</span></span></span><br><span class="line"><span class="tag">       (<span class="attr">keyup</span>)=<span class="string">"myKeyup($event)"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>却发现这样只能第一次的时候自动聚焦，以后就不可以了。<br>后来又尝试了autoFocus directive的方法，设置聚焦必须在<strong>ngAfterViewInit</strong>方法中进行。<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;AfterViewInit, Directive, ElementRef, Renderer2&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[aliAutoFocus]'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AliAutoFocusDirective <span class="keyword">implements</span> AfterViewInit &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngAfterViewInit(): <span class="built_in">void</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.el.nativeElement.focus()</span><br><span class="line">    &#125;, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后尝试在代码中手动聚焦，还是不行。找了很多原因，发现设置一个延迟就好了。<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'searchInput'</span>).focus()</span><br><span class="line">&#125;, <span class="number">500</span>)</span><br></pre></td></tr></table></figure></p>
+<p>这是因为输入框的隐藏于显示我使用了<strong>*ngIf</strong>指令来控制，所以input在DOM中是动态的，如果一个元素不在DOM上面，对其使用 focus 也是无效的，所以我们设置一个500ms的延迟确保此时input已经在DOM中了，再调用focus()方法就起作用了。</p>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/06/angular-safe-html-pipe/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2019/08/06/less-calculate-height/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/08/06/angular-input-focus/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
