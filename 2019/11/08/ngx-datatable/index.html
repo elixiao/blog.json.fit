@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>ngx-datatable滚动条问题 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="插件bug," />
+  
+
+  <meta name="description" content="ngx-datatable组件使用时，若设置一列右侧悬浮，即设置frozenRight=true时有以下问题 1、列表数据很多产生滚动时 （1）mac系统设置滚动时才显示滚动条，此时没有问题 （2）有滚动条时，悬浮的表头和列不对齐，滚动条把body中的列向左挤 2、列表数据少无滚动时 mac系统设置始终显示滚动条后，和其他系统产生的问题一样：右侧预留滚动条的宽度导致滚动时右侧有数据漏出来 之前设置">
+<meta name="keywords" content="插件bug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ngx-datatable滚动条问题">
+<meta property="og:url" content="https://blog.json.Fit/2019/11/08/ngx-datatable/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="ngx-datatable组件使用时，若设置一列右侧悬浮，即设置frozenRight=true时有以下问题 1、列表数据很多产生滚动时 （1）mac系统设置滚动时才显示滚动条，此时没有问题 （2）有滚动条时，悬浮的表头和列不对齐，滚动条把body中的列向左挤 2、列表数据少无滚动时 mac系统设置始终显示滚动条后，和其他系统产生的问题一样：右侧预留滚动条的宽度导致滚动时右侧有数据漏出来 之前设置">
+<meta property="og:updated_time" content="2019-11-11T05:43:09.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ngx-datatable滚动条问题">
+<meta name="twitter:description" content="ngx-datatable组件使用时，若设置一列右侧悬浮，即设置frozenRight=true时有以下问题 1、列表数据很多产生滚动时 （1）mac系统设置滚动时才显示滚动条，此时没有问题 （2）有滚动条时，悬浮的表头和列不对齐，滚动条把body中的列向左挤 2、列表数据少无滚动时 mac系统设置始终显示滚动条后，和其他系统产生的问题一样：右侧预留滚动条的宽度导致滚动时右侧有数据漏出来 之前设置">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ngx-datatable" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ngx-datatable滚动条问题</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.11.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>谢春燕</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/11/08/ngx-datatable/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>ngx-datatable组件使用时，若设置一列右侧悬浮，即设置frozenRight=true时有以下问题</p>
+<p>1、列表数据很多产生滚动时</p>
+<p>（1）mac系统设置滚动时才显示滚动条，此时没有问题</p>
+<p>（2）有滚动条时，悬浮的表头和列不对齐，滚动条把body中的列向左挤</p>
+<p>2、列表数据少无滚动时</p>
+<p>mac系统设置始终显示滚动条后，和其他系统产生的问题一样：右侧预留滚动条的宽度导致滚动时右侧有数据漏出来</p>
+<p>之前设置右侧固定列的偏移（如下样式）是可以解决的，但是现在会出现设置偏移后表格body可以一直向左滚动</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ngx-datatable</span><span class="selector-class">.material</span> <span class="selector-class">.datatable-header</span> <span class="selector-class">.datatable-row-right</span>, </span><br><span class="line"><span class="selector-class">.ngx-datatable</span><span class="selector-class">.material</span> <span class="selector-class">.datatable-body</span> <span class="selector-class">.datatable-row-right</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">17px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过研究解决方案有两种：</p>
+<p>1、判断table中是否有滚动条，没有时在table右侧设置一条遮挡线用以挡住滚动时漏出的数据；同时对固定列的header设置transform样式，让其向左偏移滚动条的宽度，以此让表头和内容对齐。在table外层div使用tableCover指令，示例代码如下</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.table-cover</span> &#123;</span><br><span class="line">  <span class="selector-class">.datatable-body</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">      <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">17px</span>;</span><br><span class="line">      <span class="attribute">position</span>: fixed;</span><br><span class="line">      <span class="attribute">background</span>: <span class="number">#fff</span>;</span><br><span class="line">      <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">      <span class="attribute">top</span>: <span class="number">48px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Inject, Injectable&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"><span class="keyword">import</span> &#123;DOCUMENT&#125; <span class="keyword">from</span> <span class="string">'@angular/common'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取滚动条宽度</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ScrollbarHelper &#123;</span><br><span class="line">  width: <span class="built_in">number</span> = <span class="keyword">this</span>.getWidth()</span><br><span class="line"></span><br><span class="line">  constructor(@Inject(DOCUMENT) private document: any) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getWidth(): <span class="built_in">number</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> outer = <span class="keyword">this</span>.document.createElement(<span class="string">'div'</span>)</span><br><span class="line">    outer.style.visibility = <span class="string">'hidden'</span></span><br><span class="line">    outer.style.width = <span class="string">'100px'</span></span><br><span class="line">    outer.style.msOverflowStyle = <span class="string">'scrollbar'</span></span><br><span class="line">    <span class="keyword">this</span>.document.body.appendChild(outer)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> widthNoScroll = outer.offsetWidth</span><br><span class="line">    outer.style.overflow = <span class="string">'scroll'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> inner = <span class="keyword">this</span>.document.createElement(<span class="string">'div'</span>)</span><br><span class="line">    inner.style.width = <span class="string">'100%'</span></span><br><span class="line">    outer.appendChild(inner)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> widthWithScroll = inner.offsetWidth</span><br><span class="line">    outer.parentNode.removeChild(outer)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> widthNoScroll - widthWithScroll</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Directive, ElementRef, Input, OnChanges, Renderer2&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"><span class="keyword">import</span> &#123;ScrollbarHelper&#125; <span class="keyword">from</span> <span class="string">'src/app/core/services/scroll-bar-helper.service'</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 修复滚动条bug指令</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[tableCover]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> TableCoverDirective <span class="keyword">implements</span> OnChanges &#123;</span><br><span class="line">  <span class="meta">@Input</span>() loadingIndicator  <span class="comment">// 表格内容更新监听</span></span><br><span class="line">  <span class="meta">@Input</span>() addClass = <span class="literal">true</span>   <span class="comment">// 是否需要添加覆盖遮挡样式</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> renderer: Renderer2,</span></span><br><span class="line"><span class="params">               <span class="keyword">private</span> el: ElementRef, </span></span><br><span class="line"><span class="params">               <span class="keyword">private</span> scrollbarHelper: ScrollbarHelper</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ngOnChanges(event) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> datatableHeader: <span class="built_in">any</span> = <span class="keyword">this</span>.el.nativeElement.getElementsByClassName(<span class="string">'datatable-header-inner'</span>)</span><br><span class="line">      <span class="keyword">const</span> content = datatableHeader[<span class="number">0</span>].getElementsByClassName(<span class="string">'datatable-row-right'</span>)</span><br><span class="line">      <span class="keyword">this</span>.renderer.setStyle(content[<span class="number">0</span>], <span class="string">'marginLeft'</span>, <span class="string">`<span class="subst">$&#123;-this.scrollbarHelper.width&#125;</span>px`</span>)</span><br><span class="line">      <span class="keyword">const</span> headerCell = content[<span class="number">0</span>].getElementsByTagName(<span class="string">'datatable-header-cell'</span>)</span><br><span class="line">      <span class="keyword">if</span> (headerCell.length) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; headerCell.length; i++) &#123;</span><br><span class="line">          <span class="keyword">this</span>.renderer.setStyle(headerCell[i], <span class="string">'transform'</span>, <span class="string">`translateX(<span class="subst">$&#123;this.scrollbarHelper.width&#125;</span>px)`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.judgeScroll()</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @desc 判断是否有滚动条</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  judgeScroll = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> bodys: <span class="built_in">any</span> = <span class="keyword">this</span>.el.nativeElement.getElementsByClassName(<span class="string">'datatable-body'</span>)</span><br><span class="line">    <span class="keyword">const</span> hasScroll =  !(bodys &amp;&amp; bodys.length &amp;&amp; bodys[<span class="number">0</span>].scrollHeight &gt; bodys[<span class="number">0</span>].clientHeight)</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.addClass &amp;&amp; hasScroll)&#123;</span><br><span class="line">      <span class="keyword">this</span>.renderer.addClass(<span class="keyword">this</span>.el.nativeElement, <span class="string">'table-cover'</span>) </span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.renderer.removeClass(<span class="keyword">this</span>.el.nativeElement, <span class="string">'table-cover'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、设置表格固定列右移滚动条宽度，监听滚动条滚动距离，当scrollLeft距离大于等于scrollWidth-clientWidth-scrollBarWidth时设置scrollLeft值为scrollWidth-clientWidth-scrollBarWidth；使用时同样在table外层div设置tableCover指令</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Directive, ElementRef, Input, OnChanges, Renderer2&#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span></span><br><span class="line"><span class="keyword">import</span> &#123;ScrollbarHelper&#125; <span class="keyword">from</span> <span class="string">'../../core/services/scroll-bar-helper.service'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  selector: <span class="string">'[tableCover]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> TableCoverDirective <span class="keyword">implements</span> OnChanges &#123;</span><br><span class="line">  <span class="meta">@Input</span>() loadingIndicator  <span class="comment">// 表格内容更新监听</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> renderer: Renderer2, </span></span><br><span class="line"><span class="params">               <span class="keyword">private</span> el: ElementRef, </span></span><br><span class="line"><span class="params">               <span class="keyword">private</span> scrollbarHelper: ScrollbarHelper</span>) &#123;   </span><br><span class="line">  &#125;</span><br><span class="line">  ngOnChanges(event) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.setScrollLeft()</span><br><span class="line">      <span class="keyword">this</span>.el.nativeElement.getElementsByTagName(<span class="string">'datatable-body'</span>)[<span class="number">0</span>].removeEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.setScrollLeft)</span><br><span class="line">      <span class="keyword">this</span>.el.nativeElement.getElementsByTagName(<span class="string">'datatable-body'</span>)[<span class="number">0</span>].addEventListener(<span class="string">'scroll'</span>, <span class="keyword">this</span>.setScrollLeft)</span><br><span class="line">    &#125;, <span class="number">0</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @desc 设置滚动条位置</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  setScrollLeft = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> width = <span class="keyword">this</span>.scrollbarHelper.width || <span class="number">0</span></span><br><span class="line">    <span class="keyword">this</span>.setBodyRight()</span><br><span class="line">    <span class="keyword">const</span> obj: <span class="built_in">any</span> = <span class="keyword">this</span>.el.nativeElement.getElementsByClassName(<span class="string">'datatable-body'</span>)</span><br><span class="line">    <span class="keyword">const</span> maxScrollLeft = obj[<span class="number">0</span>].scrollWidth - obj[<span class="number">0</span>].clientWidth - width</span><br><span class="line">    <span class="keyword">if</span> (obj[<span class="number">0</span>].scrollLeft &gt;= maxScrollLeft) &#123;</span><br><span class="line">      obj[<span class="number">0</span>].scrollLeft = maxScrollLeft</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @desc 设置右侧body固定列左移滚动条宽度</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  setBodyRight() &#123;</span><br><span class="line">    <span class="keyword">const</span> scrollBarWidth = <span class="keyword">this</span>.scrollbarHelper.width || <span class="number">0</span></span><br><span class="line">    <span class="keyword">const</span> datatableBody: <span class="built_in">any</span> = <span class="keyword">this</span>.el.nativeElement.getElementsByTagName(<span class="string">'datatable-body'</span>)</span><br><span class="line">    <span class="keyword">const</span> content = datatableBody[<span class="number">0</span>].getElementsByClassName(<span class="string">'datatable-row-right'</span>)</span><br><span class="line">       <span class="keyword">if</span> (content.length) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; content.length; i++) &#123;</span><br><span class="line">        <span class="keyword">this</span>.renderer.setStyle(content[i], <span class="string">'marginLeft'</span>, <span class="string">`<span class="subst">$&#123;scrollBarWidth&#125;</span>px`</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/06/moment-format/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/11/08/ngx-datatable/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
