@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>git subtree 介绍 | json.fit 团队博客</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Git," />
+  
+
+  <meta name="description" content="使用场景git subtree 特别适合那些需要 双向同步 的项目，例如：  A 项目中依赖了子项目 B，直接在 A 项目里改 B 子项目对应的目录里的代码，然后提交代码，这个更改也提交到 B 子项目的 Git 仓库里。同时子项目 B 也可以单独提交到 Git 仓库，再在 A 项目里把子项目 B 的代码update。  与 submodule 的区别是   方式 区别     submodule">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git subtree 介绍">
+<meta property="og:url" content="https://blog.json.Fit/2019/11/22/git-subtree/index.html">
+<meta property="og:site_name" content="json.fit 团队博客">
+<meta property="og:description" content="使用场景git subtree 特别适合那些需要 双向同步 的项目，例如：  A 项目中依赖了子项目 B，直接在 A 项目里改 B 子项目对应的目录里的代码，然后提交代码，这个更改也提交到 B 子项目的 Git 仓库里。同时子项目 B 也可以单独提交到 Git 仓库，再在 A 项目里把子项目 B 的代码update。  与 submodule 的区别是   方式 区别     submodule">
+<meta property="og:updated_time" content="2019-11-22T01:54:34.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git subtree 介绍">
+<meta name="twitter:description" content="使用场景git subtree 特别适合那些需要 双向同步 的项目，例如：  A 项目中依赖了子项目 B，直接在 A 项目里改 B 子项目对应的目录里的代码，然后提交代码，这个更改也提交到 B 子项目的 Git 仓库里。同时子项目 B 也可以单独提交到 Git 仓库，再在 A 项目里把子项目 B 的代码update。  与 submodule 的区别是   方式 区别     submodule">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用场景"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与-submodule-的区别是"><span class="toc-text">与 submodule 的区别是</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存在的问题"><span class="toc-text">存在的问题</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-git-subtree" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">git subtree 介绍</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.11.22</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>李潇</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="https://blog.json.fit/2019/11/22/git-subtree/#disqus_thread"></a>
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>git subtree 特别适合那些需要 <strong>双向同步</strong> 的项目，例如：</p>
+<blockquote>
+<p>A 项目中依赖了子项目 B，直接在 A 项目里改 B 子项目对应的目录里的代码，然后提交代码，这个更改也提交到 B 子项目的 Git 仓库里。同时子项目 B 也可以单独提交到 Git 仓库，再在 A 项目里把子项目 B 的代码update。</p>
+</blockquote>
+<h3 id="与-submodule-的区别是"><a href="#与-submodule-的区别是" class="headerlink" title="与 submodule 的区别是"></a>与 submodule 的区别是</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>submodule</td>
+<td>允许其他的仓库指定以一个commit嵌入仓库的子目录仓库<br> clone下来需要 init 和 update   <br>.gitmodule 文件记录 submodule 版本信息<br>删除起来比较费劲</td>
+</tr>
+<tr>
+<td>subtree</td>
+<td>避免上述问题<br>管理和更新流程比较方便<br>git subtree合并子仓库到项目中的子目录<br>git v1.5.2以后建议使用git subtree</td>
+</tr>
+</tbody>
+</table>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ol>
+<li><p>添加关联</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git subtree add --prefix=&lt;sub-path&gt; &lt;sub-repo&gt; &lt;branch&gt; --squash</span><br></pre></td></tr></table></figure>
+<p> <code>—squash</code> 意思是把 <code>subtree</code> 的改动合并成一次commit，这样就不用拉取子项目完整的历史记录。<code>—prefix</code> 之后的=等号也可以用空格。</p>
+</li>
+<li><p>提交更改到子项目</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git subtree push --prefix=&lt;sub-path&gt; &lt;sub-repo&gt; &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+<p> 在 main 中各种 commit，其中有些可能涉及 sub 目录的修改也没有任何关系，上面的命令能够遍历所有 commit ，从中找到针对 sub 目录的修改，然后把这些记录提交到 sub 的仓库。</p>
+</li>
+<li><p>更新子目录</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git subtree pull --prefix=&lt;sub-path&gt; &lt;sub-repo&gt; &lt;branch&gt; --squash</span><br></pre></td></tr></table></figure>
+<p> 其他人可以用上面的命令即可同步 sub </p>
+</li>
+<li><p>删除子目录：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;subtree&gt;</span><br><span class="line">git commit</span><br><span class="line">git subtree add --prefix=&lt;subtree&gt; &lt;repository_url&gt; &lt;branch&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><ol>
+<li>切换分支不方便，如果想要把本地某个子项目的代码切换到某个分支，就需要执行 <code>git rm -rf</code> 和 <code>git subtree add</code> 的操作，没有 <code>submodule</code> 中  <code>git checkout branch</code> 来的方便。</li>
+<li>代码提交速度比 <code>submodule</code> 慢，因为 <code>submodule</code> 是提交对子模块某次提交的引用，而 <code>subtree</code> 提交了 <code>subtree</code> 目录下的全部文件。</li>
+</ol>
+
+    
+  </div>
+
+  
+      <div class="git"></div>
+  
+
+</article>
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/11/08/ngx-datatable/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'jsonfit';
+    
+    var disqus_url = 'https://blog.json.Fit/2019/11/22/git-subtree/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//jsonfit.disqus.com/count.js" async></script>
+
+
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
