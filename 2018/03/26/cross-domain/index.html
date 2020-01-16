@@ -22,17 +22,17 @@
 <meta property="og:url" content="https://blog.json.Fit/2018/03/26/cross-domain/index.html">
 <meta property="og:site_name" content="json.fit 团队博客">
 <meta property="og:description" content="跨域来源于 ajax 请求，很多框架都对 ajax 请求进行了封装，比如 axios、request 等，使用起来特别方便，不过我们完全可以用 js 自己封装一个最原始的 ajax 请求： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/allow-origin.png">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/allow-origin-not-equal.png">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/wildcard.png">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/preflight.jpg">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/options.png">
-<meta property="og:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/cors.jpg">
-<meta property="og:updated_time" content="2018-03-29T10:07:27.486Z">
+<meta property="og:image" content="http://img.react.ren/blog/allow-origin.png">
+<meta property="og:image" content="http://img.react.ren/blog/allow-origin-not-equal.png">
+<meta property="og:image" content="http://img.react.ren/blog/wildcard.png">
+<meta property="og:image" content="http://img.react.ren/blog/preflight.jpg">
+<meta property="og:image" content="http://img.react.ren/blog/options.png">
+<meta property="og:image" content="http://img.react.ren/blog/cors.jpg">
+<meta property="og:updated_time" content="2020-01-16T09:21:37.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端常见跨域问题">
 <meta name="twitter:description" content="跨域来源于 ajax 请求，很多框架都对 ajax 请求进行了封装，比如 axios、request 等，使用起来特别方便，不过我们完全可以用 js 自己封装一个最原始的 ajax 请求： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657">
-<meta name="twitter:image" content="http://7xsy2w.com1.z0.glb.clouddn.com/blog/allow-origin.png">
+<meta name="twitter:image" content="http://img.react.ren/blog/allow-origin.png">
 
   
 
@@ -148,22 +148,22 @@
 <p>下面就用上面封装的原始 ajax 请求来对跨域问题进行讲解。ajax 之所以能够请求成功，其前提是服务器端支持跨域，因此服务器端要在 header 里面添加：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Origin: *"</span>);</span><br></pre></td></tr></table></figure>
 <p>如果没有浏览器会报如下错：</p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/allow-origin.png" alt="allow-origin"></p>
+<p><img src="http://img.react.ren/blog/allow-origin.png" alt="allow-origin"></p>
 <p>上面的header里面使用了<code>*</code>通配符，表示任何客户端都可以访问服务器上的资源，但我们还可以指定可访问的客户端网址：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Origin: http://www.xxx.com"</span>);</span><br></pre></td></tr></table></figure>
 <p>这个时候仅有该网址可以对服务器进行 ajax 请求，如果是其他网址请求会报如下错：</p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/allow-origin-not-equal.png" alt="allow-origin-not-equal"></p>
+<p><img src="http://img.react.ren/blog/allow-origin-not-equal.png" alt="allow-origin-not-equal"></p>
 <p>很多情况下服务端需要对客户端进行cookie验证，要想在ajax请求中跨域发送cookie需要添加<code>xhr.withCredentials = true</code>这句话，例如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();  </span><br><span class="line">xhr.open(<span class="string">"POST"</span>, <span class="string">"http://xxxx.com/a"</span>, <span class="literal">true</span>);  </span><br><span class="line">xhr.withCredentials = <span class="literal">true</span>; <span class="comment">//支持跨域发送cookies</span></span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
 <p>不过仅在客户端设置也不行，还需要在服务器 header 里面添加下面一句话：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Credentials: true"</span>);</span><br></pre></td></tr></table></figure>
 <p>这个时候cookie就可以顺利带到服务器了，不过这里有一点需要特别注意的：<code>Access-Control-Allow-Origin</code>不能填<code>*</code>否则也无法携带cookie，也就是说此时必须指定可访问的客户端网址。如果写成<code>*</code>会报如下错误：</p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/wildcard.png" alt="wildcard"></p>
+<p><img src="http://img.react.ren/blog/wildcard.png" alt="wildcard"></p>
 <p>到这里，问题基本上解决了。但可恶的是在进行put、delete等请求的时候，浏览器会预先发一个options请求给服务器，但这个options请求又是不带cookie的，这个时候服务器会返回401，从而导致后续的put、delete等请求无法顺利进行。</p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/preflight.jpg" alt="preflight"></p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/options.png" alt="options"></p>
+<p><img src="http://img.react.ren/blog/preflight.jpg" alt="preflight"></p>
+<p><img src="http://img.react.ren/blog/options.png" alt="options"></p>
 <p>于是需要在服务端对options请求统一返回200，这时候就可以放心使用ajax对restful接口进行增删改查啦！</p>
-<p><img src="http://7xsy2w.com1.z0.glb.clouddn.com/blog/cors.jpg" alt="cors"></p>
+<p><img src="http://img.react.ren/blog/cors.jpg" alt="cors"></p>
 <p>最后，如何获取response header里面的字段？语法如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myHeader = xhr.getResponseHeader(name);</span><br><span class="line"><span class="keyword">var</span> headers = xhr.getAllResponseHeaders();</span><br></pre></td></tr></table></figure>
 
